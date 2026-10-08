@@ -3,7 +3,9 @@
 
 package com.mycompany.hospedagempets.services;
 
+import com.mycompany.hospedagempets.model.Animal;
 import com.mycompany.hospedagempets.model.Hospedagem;
+import static java.lang.System.in;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,6 +77,26 @@ public class HospedagemService {
         }
         
         return resultadoPesquisa;
-    }    
+    }
+    
+    public List<Animal> allAnimals(String responsavel){
+        List<Animal> animais = new ArrayList<>();
+        for(Hospedagem hospedagem : hospedagens){
+            if(hospedagem.getResponsavel().toLowerCase() == responsavel.toLowerCase()){
+                animais.add(hospedagem.getAnimal());
+            }
+        }
+        return animais;
+    }
+    
+    public List<Animal> allAnimals(Integer id){
+        List<Animal> animais = new ArrayList<>();
+        for(Hospedagem hospedagem : hospedagens){
+            if(hospedagem.getResponsavel().toLowerCase() == responsavel.toLowerCase()){
+                animais.add(hospedagem.getAnimal());
+            }
+        }
+        return animais;
+    }
     
 }
