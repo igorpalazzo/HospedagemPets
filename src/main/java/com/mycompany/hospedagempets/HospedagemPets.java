@@ -18,6 +18,6 @@ public class HospedagemPets {
         HospedagemController controller = new HospedagemController(view, service);
         view.setVisible(true);
         
-        
+        System.out.println("Testando git");
     }
 }
