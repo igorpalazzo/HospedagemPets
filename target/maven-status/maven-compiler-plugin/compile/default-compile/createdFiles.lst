@@ -1,0 +1,8 @@
+com/mycompany/hospedagempets/controller/HospedagemController.class
+com/mycompany/hospedagempets/model/ServicoAdicional.class
+com/mycompany/hospedagempets/model/Hospedagem.class
+com/mycompany/hospedagempets/HospedagemPets.class
+com/mycompany/hospedagempets/view/HospedagemView.class
+com/mycompany/hospedagempets/model/TipoAcomodacao.class
+com/mycompany/hospedagempets/services/HospedagemService.class
+com/mycompany/hospedagempets/model/Animal.class
