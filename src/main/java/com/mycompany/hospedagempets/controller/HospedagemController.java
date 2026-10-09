@@ -20,16 +20,28 @@
             view.adicionarListenerCadastrar(e -> {
 
                 String nomeAnimal = view.getNomeAnimal();
-                nomeAnimal.isBlank()
+                if(nomeAnimal.isBlank()) {
+                    view.mostrarErro("ERRO: Nome do animal e obrigatorio!");
+                    return;
+                }
                 System.out.println("Animal: " + nomeAnimal);
 
+                
                 String nomeResponsavel = view.getNomeResponsavel();
+                if(nomeResponsavel.isBlank()) {
+                    view.mostrarErro("ERRO: Nome do responsavel e obrigatorio!");
+                    return;
+                }
                 System.out.println("Responsavel: " + nomeResponsavel);
 
                 Integer qtdDiarias = view.getQtdDiarias();
                 System.out.println("Quantidade de diarias: " + qtdDiarias);
 
                 String especieAnimal = view.getEspecie();
+                if (especieAnimal == null) {
+                    view.mostrarErro("Uma especie deve ser selecionada!");
+                    return;
+                }
                 System.out.println("Especie do animal: " + especieAnimal);
 
                 TipoAcomodacao tipoAcomodacao= view.getTipoAcomodacao();
@@ -47,6 +59,9 @@
                 
                 
                 System.out.println("Hospedagens cadastradas: " + service.listagem().size());
+                
+                view.mostrarSucesso("Cadastro realizado com sucesso!");
+                view.limparCampos();
             });
         }
     }

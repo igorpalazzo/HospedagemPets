@@ -5,6 +5,7 @@ import com.mycompany.hospedagempets.model.TipoAcomodacao;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class HospedagemView extends javax.swing.JFrame {
     
@@ -19,6 +20,8 @@ public class HospedagemView extends javax.swing.JFrame {
         for(TipoAcomodacao acomodacao : TipoAcomodacao.values()) {
             cmbAcomodacao.addItem(acomodacao);
         }
+        
+            tblHospedagens.setModel(tableModel);
                 
     }
     
@@ -77,7 +80,34 @@ public class HospedagemView extends javax.swing.JFrame {
         return lista;
     }
     
+    public void mostrarErro(String mensagem) {
+        JOptionPane.showMessageDialog(this, mensagem, "Erro de cadastro", JOptionPane.ERROR_MESSAGE);
+    }
     
+    public void mostrarSucesso(String mensagem) {
+            JOptionPane.showMessageDialog(this, mensagem, "Cadastro concluido", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public void limparCampos() {
+        // Campos de texto
+        txtNomeAnimal.setText("");
+        txtNomeResponsavel.setText("");
+
+        // Espécie
+        btnGrupoEspecie.clearSelection();
+
+        // Quantidade de diárias
+        spnDiarias.setValue(1);
+
+        // Tipo de acomodação
+        cmbAcomodacao.setSelectedIndex(0);
+
+        // Serviços adicionais
+        chkBanho.setSelected(false);
+        chkTosa.setSelected(false);
+        chkPasseio.setSelected(false);
+        chkAcompVeterinario.setSelected(false);
+}
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,6 +137,8 @@ public class HospedagemView extends javax.swing.JFrame {
         chkAcompVeterinario = new javax.swing.JCheckBox();
         chkPasseio = new javax.swing.JCheckBox();
         btnCadastrar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblHospedagens = new javax.swing.JTable();
 
         jCheckBox3.setText("jCheckBox3");
 
@@ -144,6 +176,19 @@ public class HospedagemView extends javax.swing.JFrame {
 
         btnCadastrar.setText("Cadastrar");
 
+        tblHospedagens.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblHospedagens);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,40 +196,43 @@ public class HospedagemView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNomeResponsavel, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                            .addComponent(txtNomeAnimal)
-                            .addComponent(spnDiarias)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rdbCachorro)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rdbGato))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chkBanho)
-                            .addComponent(chkTosa))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chkAcompVeterinario)
-                            .addComponent(chkPasseio))))
-                .addContainerGap(40, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNomeResponsavel, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                                    .addComponent(txtNomeAnimal)
+                                    .addComponent(spnDiarias)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rdbCachorro)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rdbGato))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(chkBanho)
+                                    .addComponent(chkTosa))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(chkAcompVeterinario)
+                                    .addComponent(chkPasseio))))
+                        .addGap(0, 34, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -220,9 +268,10 @@ public class HospedagemView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(chkAcompVeterinario)
                     .addComponent(chkTosa))
-                .addGap(18, 18, 18)
-                .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -272,9 +321,11 @@ public class HospedagemView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton rdbCachorro;
     private javax.swing.JRadioButton rdbGato;
     private javax.swing.JSpinner spnDiarias;
+    private javax.swing.JTable tblHospedagens;
     private javax.swing.JTextField txtNomeAnimal;
     private javax.swing.JTextField txtNomeResponsavel;
     // End of variables declaration//GEN-END:variables
