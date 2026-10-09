@@ -1,7 +1,10 @@
 package com.mycompany.hospedagempets.view;
 
+import com.mycompany.hospedagempets.model.ServicoAdicional;
 import com.mycompany.hospedagempets.model.TipoAcomodacao;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HospedagemView extends javax.swing.JFrame {
     
@@ -31,9 +34,50 @@ public class HospedagemView extends javax.swing.JFrame {
         return txtNomeResponsavel.getText();
     }
     
-        public Integer getQtdDiarias() {
-            return (Integer)spnDiarias.getValue();
+    public Integer getQtdDiarias() {
+        return (Integer)spnDiarias.getValue();
+    }
+    
+    public String getEspecie() {
+        String especie;
+        if (rdbCachorro.isSelected()) {
+            especie = "Cachorro";
+            return especie;
         }
+        if(rdbGato.isSelected()) {
+            especie = "Gato";
+            return especie;
+        }
+        return null;
+    }
+    
+    public TipoAcomodacao getTipoAcomodacao() {
+        return (TipoAcomodacao)cmbAcomodacao.getSelectedItem();
+    }
+    
+    public List<ServicoAdicional> getServicos() {
+        List<ServicoAdicional> lista = new ArrayList<>();
+        
+        if (chkBanho.isSelected()) {
+            lista.add(ServicoAdicional.BANHO);
+        }
+        
+        if(chkTosa.isSelected()) {
+            lista.add(ServicoAdicional.TOSA);
+        }
+        
+        if(chkPasseio.isSelected()) {
+            lista.add(ServicoAdicional.PASSEIO);
+        }
+        
+        if(chkAcompVeterinario.isSelected()) {
+            lista.add(ServicoAdicional.ACOMPANHAMENTO_VETERINARIO);
+        }
+        
+        return lista;
+    }
+    
+    
     
     /**
      * This method is called from within the constructor to initialize the form.

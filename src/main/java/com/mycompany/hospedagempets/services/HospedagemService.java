@@ -1,5 +1,5 @@
 //ESSE SERVICE SERVE BASICAMENTE PRA COLOCAR A HOSPEDAGEM JA CRIADA DENTRO -
-//- DE UMA LISTA QUE FOIR CRIADA JA NO CONTROLLER/VIEW
+//- DE UMA LISTA QUE FOI CRIADA JA NO CONTROLLER/VIEW
 
 package com.mycompany.hospedagempets.services;
 
@@ -87,5 +87,7 @@ public class HospedagemService {
         }
         return animais;
     }
+    
+    
     
 }
