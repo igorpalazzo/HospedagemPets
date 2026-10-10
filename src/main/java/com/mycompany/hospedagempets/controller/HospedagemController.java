@@ -12,6 +12,7 @@
 
         private HospedagemView view;
         private HospedagemService service;
+        private Long idEmEdicao = null;
 
         public HospedagemController(HospedagemView view, HospedagemService service) {
             this.view = view;
@@ -110,6 +111,93 @@
 
             view.atualizarTabela(service.listagem());
 
+            });
+            
+                // EDITAR HOSPEDAGEM
+            view.adicionarListenerEditar(e -> {
+
+                Long id = view.getIdHospedagemSelecionada();
+
+                if (id == null) {
+                    view.mostrarErro("Selecione uma hospedagem para editar!");
+                    return;
+                }
+
+                for (Hospedagem h : service.listagem()) {
+                    
+                    if (h.getId().equals(id)) {
+
+                        idEmEdicao = id;
+
+                        view.preencherCampos(h);
+
+                        return;
+                    }
+                }
+
+                view.mostrarErro("Hospedagem não encontrada!");
+            });
+
+
+        // SALVAR ALTERAÇÕES
+        view.adicionarListenerSalvarAlteracoes(e -> {
+
+            if (idEmEdicao == null) {
+            view.mostrarErro("Primeiro selecione uma hospedagem para editar!");
+            return;
+        }
+
+        String nomeAnimal = view.getNomeAnimal().trim();
+        String responsavel = view.getNomeResponsavel().trim();
+        String especie = view.getEspecie();
+
+        if (nomeAnimal.isBlank() || responsavel.isBlank() || especie == null) {
+            view.mostrarErro("Preencha todos os campos obrigatórios!");
+            return;
+        }
+
+        Animal animal = new Animal(null, nomeAnimal, especie);
+
+        Hospedagem hospedagem = new Hospedagem(
+            idEmEdicao,
+            responsavel,
+            animal,
+            view.getTipoAcomodacao(),
+            view.getQtdDiarias()
+        );
+
+            hospedagem.setServicos(view.getServicos());
+
+            service.alteracao(hospedagem);
+
+            idEmEdicao = null;
+
+            view.atualizarTabela(service.listagem());
+
+            view.mostrarSucesso("Hospedagem alterada com sucesso!");
+
+            view.limparCampos();
+            });
+        
+            // EXIBIR RESUMO
+        view.adicionarListenerResumo(e -> {
+
+            Long id = view.getIdHospedagemSelecionada();
+
+            if (id == null) {
+               view.mostrarErro("Selecione uma hospedagem para visualizar o resumo!");
+              return;
+            }
+
+            for (Hospedagem h : service.listagem()) {
+
+            if (h.getId().equals(id)) {
+                view.mostrarResumo(h);
+                return;
+            }
+        }
+
+            view.mostrarErro("Hospedagem não encontrada!");
             });
         }
     }

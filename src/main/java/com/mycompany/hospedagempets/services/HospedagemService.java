@@ -76,18 +76,6 @@ public class HospedagemService {
         }
         
         return resultadoPesquisa;
-    }
-    
-    public List<Animal> allAnimals(String responsavel){
-        List<Animal> animais = new ArrayList<>();
-        for(Hospedagem hospedagem : hospedagens){
-            if(hospedagem.getResponsavel().toLowerCase() == responsavel.toLowerCase()){
-                animais.add(hospedagem.getAnimal());
-            }
-        }
-        return animais;
-    }
-    
-    
+    }   
     
 }
