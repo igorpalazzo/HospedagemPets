@@ -55,13 +55,61 @@
                 hospedagem.setServicos(servicos);
                 
                 //Adicionar cadastro local na lista de cadastros de hospedagens
+                // Cadastrar a hospedagem
                 service.cadastrar(hospedagem);
-                
-                
-                System.out.println("Hospedagens cadastradas: " + service.listagem().size());
-                
+
+                // Atualizar a tabela
+                view.atualizarTabela(service.listagem());
+
+                // Mostrar mensagem de sucesso
                 view.mostrarSucesso("Cadastro realizado com sucesso!");
-                view.limparCampos();
+
+                // Limpar o formulário
+                 view.limparCampos();
+            });
+            
+            view.adicionarListenerExcluir(e -> {
+
+                Long id = view.getIdHospedagemSelecionada();
+
+                if (id == null) {
+                    view.mostrarErro("Selecione uma hospedagem para excluir! Dê um duplo-clique na hospedagem selecionada.");
+                    return;
+                }
+
+                if (!view.confirmarExclusao()) {
+                    return;
+                }
+
+                service.remocao(id);
+
+                view.atualizarTabela(service.listagem());
+
+                view.mostrarSucesso("Hospedagem excluída com sucesso!");
+
+            });
+            
+            view.adicionarListenerPesquisar(e -> {
+
+                System.out.println("BOTAO PESQUISAR CLICADO!");
+
+                String nome = view.getTextoPesquisa().trim();
+
+                if (nome.isBlank()) {
+                    view.mostrarErro("Digite o nome de um animal para pesquisar!");
+                    return;
+                }
+
+                view.atualizarTabela(service.pesquisa(nome));
+
+            });
+
+            view.adicionarListenerExibirTodos(e -> {
+
+            System.out.println("BOTAO EXIBIR TODOS CLICADO!");
+
+            view.atualizarTabela(service.listagem());
+
             });
         }
     }

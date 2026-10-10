@@ -5,4 +5,5 @@
 /home/igorgds/NetBeansProjects/HospedagemPets/src/main/java/com/mycompany/hospedagempets/model/ServicoAdicional.java
 /home/igorgds/NetBeansProjects/HospedagemPets/src/main/java/com/mycompany/hospedagempets/model/TipoAcomodacao.java
 /home/igorgds/NetBeansProjects/HospedagemPets/src/main/java/com/mycompany/hospedagempets/services/HospedagemService.java
+/home/igorgds/NetBeansProjects/HospedagemPets/src/main/java/com/mycompany/hospedagempets/tablemodel/HospedagemTableModel.java
 /home/igorgds/NetBeansProjects/HospedagemPets/src/main/java/com/mycompany/hospedagempets/view/HospedagemView.java

@@ -4,9 +4,11 @@ import com.mycompany.hospedagempets.model.Hospedagem;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import com.mycompany.hospedagempets.model.Hospedagem;
+import com.mycompany.hospedagempets.tablemodel.HospedagemTableModel;
 
 public class HospedagemTableModel extends AbstractTableModel {
-
+    
     private List<Hospedagem> hospedagens = new ArrayList<>();
 
     private final String[] colunas = {

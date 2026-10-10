@@ -6,11 +6,18 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import com.mycompany.hospedagempets.tablemodel.HospedagemTableModel;
+import com.mycompany.hospedagempets.model.Hospedagem;
 
 public class HospedagemView extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HospedagemView.class.getName());
 
+    private HospedagemTableModel tableModel = new HospedagemTableModel();
+    
+    public void atualizarTabela(List<Hospedagem> hospedagens) {
+        tableModel.setHospedagens(hospedagens);
+    }
     /**
      * Creates new form HospedagemView
      */
@@ -107,7 +114,47 @@ public class HospedagemView extends javax.swing.JFrame {
         chkTosa.setSelected(false);
         chkPasseio.setSelected(false);
         chkAcompVeterinario.setSelected(false);
-}
+    }
+    
+    public void adicionarListenerExcluir(ActionListener listener) {
+        btnExcluir.addActionListener(listener);
+    }
+
+    public Long getIdHospedagemSelecionada() {
+        int linha = tblHospedagens.getSelectedRow();
+
+        if (linha == -1) {
+            return null;
+        }
+
+        int linhaModelo = tblHospedagens.convertRowIndexToModel(linha);
+
+        return (Long) tblHospedagens.getModel().getValueAt(linhaModelo, 0);
+    }
+    
+    public boolean confirmarExclusao() {
+    int resposta = JOptionPane.showConfirmDialog(
+     this,
+          "Deseja realmente excluir esta hospedagem?",
+            "Confirmar exclusão",
+         JOptionPane.YES_NO_OPTION,
+        JOptionPane.WARNING_MESSAGE
+        );
+
+        return resposta == JOptionPane.YES_OPTION;
+    }
+    
+    public String getTextoPesquisa() {
+        return txtPesquisa.getText();
+    }
+
+    public void adicionarListenerPesquisar(ActionListener listener) {
+        btnPesquisar.addActionListener(listener);
+    }
+
+    public void adicionarListenerExibirTodos(ActionListener listener) {
+        btnExibirTodos.addActionListener(listener);
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -120,6 +167,7 @@ public class HospedagemView extends javax.swing.JFrame {
 
         btnGrupoEspecie = new javax.swing.ButtonGroup();
         jCheckBox3 = new javax.swing.JCheckBox();
+        btnExcluir1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtNomeAnimal = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -139,8 +187,15 @@ public class HospedagemView extends javax.swing.JFrame {
         btnCadastrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblHospedagens = new javax.swing.JTable();
+        btnExcluir = new javax.swing.JButton();
+        btnPesquisar = new javax.swing.JButton();
+        txtPesquisa = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        btnExibirTodos = new javax.swing.JButton();
 
         jCheckBox3.setText("jCheckBox3");
+
+        btnExcluir1.setText("Excluir");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -189,6 +244,14 @@ public class HospedagemView extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblHospedagens);
 
+        btnExcluir.setText("Excluir");
+
+        btnPesquisar.setText("Pesquisa");
+
+        jLabel7.setText("Pesquisar Animal:");
+
+        btnExibirTodos.setText("Exibir Todos");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -197,9 +260,6 @@ public class HospedagemView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -232,7 +292,22 @@ public class HospedagemView extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(chkAcompVeterinario)
                                     .addComponent(chkPasseio))))
-                        .addGap(0, 34, Short.MAX_VALUE)))
+                        .addGap(0, 34, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtPesquisa)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnExibirTodos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -269,9 +344,19 @@ public class HospedagemView extends javax.swing.JFrame {
                     .addComponent(chkAcompVeterinario)
                     .addComponent(chkTosa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnExibirTodos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -308,7 +393,11 @@ public class HospedagemView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnExcluir1;
+    private javax.swing.JButton btnExibirTodos;
     private javax.swing.ButtonGroup btnGrupoEspecie;
+    private javax.swing.JButton btnPesquisar;
     private javax.swing.JCheckBox chkAcompVeterinario;
     private javax.swing.JCheckBox chkBanho;
     private javax.swing.JCheckBox chkPasseio;
@@ -321,6 +410,7 @@ public class HospedagemView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton rdbCachorro;
     private javax.swing.JRadioButton rdbGato;
@@ -328,5 +418,6 @@ public class HospedagemView extends javax.swing.JFrame {
     private javax.swing.JTable tblHospedagens;
     private javax.swing.JTextField txtNomeAnimal;
     private javax.swing.JTextField txtNomeResponsavel;
+    private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
 }
